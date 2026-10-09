@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <div className="mx-auto grid min-h-dvh max-w-6xl items-center gap-x-16 gap-y-8 px-4 py-8 lg:grid-cols-[1fr_auto] lg:px-10">
-      <aside className="order-2 mx-auto w-full max-w-md lg:order-1 lg:mx-0">
+      <aside className="mx-auto w-full max-w-md lg:mx-0">
         <p className="text-[12px] font-semibold uppercase tracking-[.2em] text-white/40">iPhone Life Optimizer</p>
         <h1 className="mt-3 text-balance text-[34px] font-semibold leading-[1.1] tracking-tight lg:text-[46px]">
           Ajustes que valem a pena.
@@ -97,7 +97,7 @@ export default function App() {
         </p>
       </aside>
 
-      <main className="order-1 lg:order-2">
+      <main>
         <Phone model={shown} flipped={flipped}>
           <StatusBar pct={pct} />
           <div className="screen-content" key={route.join('/')}>
