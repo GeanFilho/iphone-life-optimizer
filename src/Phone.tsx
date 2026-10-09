@@ -32,20 +32,19 @@ function useTilt(ref: React.RefObject<HTMLDivElement | null>) {
   }, [ref])
 }
 
-// ponytail: o Firefox entrega o wheel mas não rola a tela dentro do aparelho em 3D.
-// Se a rolagem nativa não andou em 2 frames, rolamos na mão; no Chrome isso nunca dispara.
+// ponytail: o Firefox entrega o wheel mas não rola a tela dentro do aparelho em 3D, então lá a rolagem é manual.
+// Só no Firefox: no Chrome a nativa funciona e é suave. Remover quando o Firefox rolar sozinho.
 function useWheelFallback(ref: React.RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !navigator.userAgent.includes('Firefox')) return
     const onWheel = (e: WheelEvent) => {
       const sc = el.querySelector<HTMLElement>('.screen-content')
-      if (!sc) return
-      const before = sc.scrollTop
-      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sc.clientHeight : 1)
-      requestAnimationFrame(() => requestAnimationFrame(() => sc.scrollTop === before && sc.scrollBy({ top: dy })))
+      if (!sc || e.ctrlKey) return // ctrl+roda = zoom
+      e.preventDefault()
+      sc.scrollTop += e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sc.clientHeight : 1)
     }
-    el.addEventListener('wheel', onWheel, { passive: true })
+    el.addEventListener('wheel', onWheel, { passive: false })
     return () => el.removeEventListener('wheel', onWheel)
   }, [ref])
 }
