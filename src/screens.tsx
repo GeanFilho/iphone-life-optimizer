@@ -143,7 +143,7 @@ export function HomeScreen({ model, items, progress }: Ctx) {
                   <Icon size={26} strokeWidth={1.75} />
                   {pending > 0 && <span className="badge">{pending}</span>}
                 </span>
-                <span className="app-label">{sec.title}</span>
+                <span className="app-label">{sec.short ?? sec.title}</span>
               </button>
             </li>
           )

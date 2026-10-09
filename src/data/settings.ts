@@ -25,12 +25,12 @@ export type Setting = {
   source?: string
 }
 
-export const sections: { id: SectionId; title: string; blurb: string }[] = [
+export const sections: { id: SectionId; title: string; short?: string; blurb: string }[] = [
   { id: 'battery', title: 'Bateria', blurb: 'Carregamento, saúde e hábitos que reduzem o desgaste.' },
-  { id: 'display', title: 'Tela e Brilho', blurb: 'A tela é um dos maiores consumidores de energia.' },
+  { id: 'display', title: 'Tela e Brilho', short: 'Tela', blurb: 'A tela é um dos maiores consumidores de energia.' },
   { id: 'privacy', title: 'Privacidade', blurb: 'Localização, rastreamento e atividade em segundo plano.' },
   { id: 'performance', title: 'Desempenho', blurb: 'Armazenamento, apps e mitos de “limpeza”.' },
-  { id: 'connectivity', title: 'Conectividade', blurb: 'Wi‑Fi, Bluetooth e rede celular.' },
+  { id: 'connectivity', title: 'Conectividade', short: 'Conexões', blurb: 'Wi‑Fi, Bluetooth e rede celular.' },
   { id: 'notifications', title: 'Notificações', blurb: 'Menos interrupções, menos tela acordando à toa.' },
   { id: 'security', title: 'Segurança', blurb: 'Atualizações, proteção e manutenção a longo prazo.' },
 ]
