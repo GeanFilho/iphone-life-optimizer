@@ -115,8 +115,8 @@ export function HomeScreen({ model, items, progress }: Ctx) {
   const done = reviewed(items, progress)
   const pct = Math.round((done / items.length) * 100)
   return (
-    <div className="home px-5 pb-8 pt-14">
-      <button className="widget" onClick={() => go([model.id, 'plano'])}>
+    <div className="home px-3.5 pb-8 pt-14">
+      <button className="widget mx-auto max-w-[calc(100%-12px)]" onClick={() => go([model.id, 'plano'])}>
         <svg viewBox="0 0 36 36" className="size-[76px] -rotate-90" aria-hidden>
           <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgb(255 255 255 / .12)" strokeWidth="3.5" />
           <circle
@@ -131,7 +131,7 @@ export function HomeScreen({ model, items, progress }: Ctx) {
         </span>
       </button>
 
-      <ul className="mt-7 grid grid-cols-4 gap-x-3 gap-y-5">
+      <ul className="mt-7 grid grid-cols-4 gap-x-1 gap-y-5">
         {sections.map((sec) => {
           const Icon = sectionIcons[sec.id]
           const list = items.filter((s) => s.section === sec.id)
@@ -247,10 +247,9 @@ export function DetailScreen({ model, progress, s, backLabel }: Ctx & { s: Setti
     <div className="flex min-h-full flex-col">
       <NavBar label={backLabel} />
       <article className="flex-1 px-5 pb-6">
-        <div className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-wider text-white/45">
-          <span>Prioridade {priorityLabels[s.priority].toLowerCase()}</span>·
-          <span>{s.evidence === 'oficial' ? 'Fonte oficial Apple' : 'Boa prática'}</span>
-        </div>
+        <p className="text-[12px] font-medium uppercase tracking-wider text-white/45">
+          Prioridade {priorityLabels[s.priority].toLowerCase()} · {s.evidence === 'oficial' ? 'Fonte oficial Apple' : 'Boa prática'}
+        </p>
         <h1 className="mt-1 text-[28px] font-bold leading-tight tracking-tight">{s.title}</h1>
 
         <div className={`verdict verdict-${s.verdict}`}>
