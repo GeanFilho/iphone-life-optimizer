@@ -51,8 +51,8 @@ export default function App() {
           Modelo
         </label>
         <div className="select-wrap mt-2">
-          <select id="model" value={model?.id ?? ''} onChange={(e) => go([e.target.value], true)}>
-            {!model && <option value="">Escolha seu iPhone</option>}
+          <select id="model" value={model?.id ?? ''} onChange={(e) => go(e.target.value ? [e.target.value] : [], true)}>
+            <option value="">{model ? 'Ver todos os modelos' : 'Escolha seu iPhone'}</option>
             {[...models].reverse().map((m) => (
               <option key={m.id} value={m.id}>
                 {m.name}
