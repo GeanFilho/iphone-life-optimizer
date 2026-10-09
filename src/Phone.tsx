@@ -32,9 +32,29 @@ function useTilt(ref: React.RefObject<HTMLDivElement | null>) {
   }, [ref])
 }
 
+// ponytail: o Firefox entrega o wheel mas não rola a tela dentro do aparelho em 3D.
+// Se a rolagem nativa não andou em 2 frames, rolamos na mão; no Chrome isso nunca dispara.
+function useWheelFallback(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const onWheel = (e: WheelEvent) => {
+      const sc = el.querySelector<HTMLElement>('.screen-content')
+      if (!sc) return
+      const before = sc.scrollTop
+      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sc.clientHeight : 1)
+      requestAnimationFrame(() => requestAnimationFrame(() => sc.scrollTop === before && sc.scrollBy({ top: dy })))
+    }
+    el.addEventListener('wheel', onWheel, { passive: true })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [ref])
+}
+
 export function Phone({ model, flipped, children }: { model: Model; flipped: boolean; children: ReactNode }) {
   const stage = useRef<HTMLDivElement>(null)
+  const screen = useRef<HTMLDivElement>(null)
   useTilt(stage)
+  useWheelFallback(screen)
   const has = (f: Model['features'][number]) => model.features.includes(f)
 
   return (
@@ -54,7 +74,7 @@ export function Phone({ model, flipped, children }: { model: Model; flipped: boo
           {has('cameraControl') && <span className="btn btn-camera-control" />}
 
           <div className="face front">
-            <div className="screen">
+            <div className="screen" ref={screen}>
               <div className={has('island') ? 'island' : 'notch'} aria-hidden />
               {children}
               <div className="glare" aria-hidden />
