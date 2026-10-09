@@ -175,7 +175,7 @@ button { cursor: pointer; }
 
 .screen-content {
   position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
-  animation: push-in .38s cubic-bezier(.2, .8, .2, 1) both;
+  animation: push-in .38s cubic-bezier(.2, .8, .2, 1) backwards; /* "both" mantém a animação ativa e o Chrome deixa de rolar com a roda do mouse */
 }
 .screen-content::-webkit-scrollbar { display: none; }
 [data-nav='back'] .screen-content { animation-name: push-back; }
