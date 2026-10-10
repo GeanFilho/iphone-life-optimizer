@@ -270,6 +270,18 @@ button { cursor: pointer; }
 }
 .status-dock button[aria-pressed='true'] { background: #fff; color: #000; }
 
+/* toque: o navegador do celular (Safari iOS principalmente) não rola conteúdo dentro de preserve-3d.
+   Lá a inclinação já é desligada, então o aparelho fica plano e o giro vira troca de face. */
+@media (hover: none) {
+  .phone-float { perspective: none; animation: none; filter: none; }
+  .phone { transform-style: flat; transform: none; transition: none; }
+  .phone::before, .phone::after { display: none; }
+  .front, .back { transform: none; }
+  .front { transition: none; }
+  .back { visibility: hidden; }
+  .phone[data-flipped] .back { visibility: visible; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .phone-float, .screen-content { animation: none; }
   .phone { transition: none; }
