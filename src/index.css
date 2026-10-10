@@ -92,7 +92,9 @@ button { cursor: pointer; }
 }
 
 .screen {
-  position: absolute; inset: calc(var(--pw) * .032); border-radius: calc(var(--pw) * .135); background: #000; overflow: hidden;
+  /* clip-path, não overflow:hidden: recorte arredondado via overflow impede a rolagem por toque no Chrome */
+  position: absolute; inset: calc(var(--pw) * .032); border-radius: calc(var(--pw) * .135); background: #000;
+  clip-path: inset(0 round calc(var(--pw) * .135));
   box-shadow: 0 0 0 calc(var(--pw) * .012) #050505;
   isolation: isolate;
   container-type: inline-size;
